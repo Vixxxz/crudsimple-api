@@ -3,6 +3,8 @@ package com.crud.crudsimple.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import java.util.List;
+import java.util.ArrayList;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -45,4 +47,10 @@ public class Mercadoria {
 	@DecimalMax(groups = {CreateMercadoria.class, UpdateMercadoria.class}, value = "99999.99")
 	@DecimalMin(groups = {CreateMercadoria.class, UpdateMercadoria.class}, value = "0.00")
 	private float valor;
+
+	@OneToMany(mappedBy = "mercadoria")
+	private List<MercadoriaTransacao> pedidos = new ArrayList<MercadoriaTransacao>();
+
+	@OneToMany(mappedBy = "mercadoria")
+	private List<Movimentacao> movimentacoes = new ArrayList<Movimentacao>();
 }

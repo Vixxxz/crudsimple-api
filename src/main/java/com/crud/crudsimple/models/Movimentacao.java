@@ -31,7 +31,7 @@ public class Movimentacao
     @Column(name = "mov_tp_movimentacao", nullable = false, length = 100)
     @NotNull(groups = {CreateMovimentacao.class, UpdateMovimentacao.class})
     @NotEmpty(groups = {CreateMovimentacao.class, UpdateMovimentacao.class})
-    @Size(groups = {CreateMovimentacao.class, UpdateMoviment}, min = 1, max = 100)
+    @Size(groups = {CreateMovimentacao.class, UpdateMovimentacao.class}, min = 1, max = 100)
     private String tpMovimentacao;
 
     @Column(name = "mov_dt_movimentacao", nullable = false)
@@ -50,7 +50,11 @@ public class Movimentacao
     @NotEmpty(groups = {CreateMovimentacao.class, UpdateMovimentacao.class})
     private Integer saldo;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "mov_mer_id", nullable = false)
-    private List<Mercadoria> mercadorias = new ArrayList<Mercadoria>();
+    private Mercadoria mercadoria;
+
+    @ManyToOne
+    @JoinColumn(name = "mov_tra_id", nullable = false)
+    private Transacao transacao;
 }

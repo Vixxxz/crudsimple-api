@@ -1,127 +1,101 @@
 package com.crud.crudsimple.models;
 
-
-
-import com.crud.implementacaov01.Domain.Entity.CartaoCredito.CartaoCredito;
-import com.crud.implementacaov01.Domain.Entity.Endereco.Endereco;
-import com.crud.implementacaov01.Domain.Entity.Transacao.Transacao;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+
+@Entity
+@Table(name = "cliente")
 public class Cliente {
 
-	private int idCliente, ranking;
+	public interface CreateCliente{}
+	public interface UpdateCliente{}
 
-	private String	nome, genero,
-					cpf, tipoTelefone,
-					telefone, email, senha;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "cli_id", unique = true, nullable = false, updatable = false)
+	private Long idCliente;
 
+	@Column(name = "cli_rank", nullable = false)
+	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
+	@NotEmpty(groups = {CreateCliente.class, UpdateCliente.class})
+	private Integer ranking;
+
+	@Column(name = "cli_nome", nullable = false, length = 100)
+	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
+	@NotEmpty(groups = {CreateCliente.class, UpdateCliente.class})
+	@Size(groups = {CreateCliente.class, UpdateCliente.class}, min = 2, max = 100)
+	private String	nome;
+
+	@Column(name = "cli_genero", nullable = false, length = 30)
+	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
+	@NotEmpty(groups = {CreateCliente.class, UpdateCliente.class})
+	@Size(groups = {CreateCliente.class, UpdateCliente.class}, min = 2, max = 30)
+	private String genero;
+
+	@Column(name = "cli_cpf", nullable = false, length = 11, unique = true)
+	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
+	@NotEmpty(groups = {CreateCliente.class, UpdateCliente.class})
+	@Size(groups = {CreateCliente.class, UpdateCliente.class}, min = 11, max = 11)
+	@CPF(groups = {CreateCliente.class, UpdateCliente.class})
+	private String cpf;
+
+	@Column(name = "cli_tp_telefone", nullable = false, length = 100)
+	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
+	@NotEmpty(groups = {CreateCliente.class, UpdateCliente.class})
+	@Size(groups = {CreateCliente.class, UpdateCliente.class}, min = 2, max = 100)
+	private String tipoTelefone;
+
+	@Column(name = "cli_telefone", nullable = false, length = 14)
+	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
+	@NotEmpty(groups = {CreateCliente.class, UpdateCliente.class})
+	@Size(groups = {CreateCliente.class, UpdateCliente.class}, min = 14, max = 14)
+	private String telefone;
+
+	@Column(name = "cli_email", nullable = false, length = 100, unique = true)
+	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
+	@NotEmpty(groups = {CreateCliente.class, UpdateCliente.class})
+	@Size(groups = {CreateCliente.class, UpdateCliente.class}, min = 2, max = 100)
+	@Email(groups = {CreateCliente.class, UpdateCliente.class})
+	private String email;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@Column(name = "cli_senha", nullable = false, length = 255, unique = true)
+	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
+	@NotEmpty(groups = {CreateCliente.class, UpdateCliente.class})
+	@Size(groups = {CreateCliente.class, UpdateCliente.class}, min = 8, max = 255)
+	private String senha;
+
+	@Column(name = "tra_dt_nascimento", nullable = false)
+	@Temporal(TemporalType.DATE)
+	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
+	@NotEmpty(groups = {CreateCliente.class, UpdateCliente.class})
 	private LocalDate dataNascimento;
 
-	private ArrayList<Endereco> enderecos;
+	@OneToMany(mappedBy = "cliente")
+	private List<ClienteEndereco> enderecos = new ArrayList<ClienteEndereco>();
 
-	private ArrayList<CartaoCredito> cartoes;
+	@OneToMany(mappedBy = "cliente")
+	private List<CartaoCredito> cartoes = new ArrayList<CartaoCredito>();
 
-	private ArrayList<Transacao> transacoes;
+	@OneToMany(mappedBy = "cliente")
+	private List<Transacao> transacoes = new ArrayList<Transacao>();
 
-	public Cliente (	int idCliente, int ranking, String nome,
-					   	String genero, String cpf, String tipoTelefone,
-					   	String telefone, String email, String senha,
-					   	LocalDate dataNascimento, ArrayList<Endereco> enderecos,
-					   	ArrayList<CartaoCredito> cartoes, ArrayList<Transacao> transacoes	) {
-		this.idCliente = idCliente;
-		this.ranking = ranking;
-		this.nome = nome;
-		this.genero = genero;
-		this.cpf = cpf;
-		this.tipoTelefone = tipoTelefone;
-		this.telefone = telefone;
-		this.email = email;
-		this.senha = senha;
-		this.dataNascimento = dataNascimento;
-		this.enderecos = enderecos;
-		this.cartoes = cartoes;
-		this.transacoes = transacoes;
-	}
-
-	public int getIdCliente() {
-		return idCliente;
-	}
-
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
-	}
-
-	public int getRanking() {
-		return ranking;
-	}
-
-	public void setRanking(int ranking) {
-		this.ranking = ranking;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getGenero() {
-		return genero;
-	}
-
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getTipoTelefone() {
-		return tipoTelefone;
-	}
-
-	public void setTipoTelefone(String tipoTelefone) {
-		this.tipoTelefone = tipoTelefone;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
+	@OneToMany(mappedBy = "cliente")
+	private List<Log> logs = new ArrayList<Log>();
 }

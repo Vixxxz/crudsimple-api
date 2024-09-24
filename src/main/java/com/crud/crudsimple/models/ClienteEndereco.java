@@ -47,16 +47,19 @@ public class ClienteEndereco {
 	@Size(groups = {CreateClienteEndereco.class, UpdateClienteEndereco.class, DeleteClienteEndereco.class}, min = 1, max = 15)
 	private String tipoEndereco;
 
-	@Column(name = "cle_observacoes")
+	@Column(name = "cle_observacoes", length = 255)
+	@Size(groups = {CreateClienteEndereco.class, UpdateClienteEndereco.class, DeleteClienteEndereco.class}, min = 0, max = 255)
 	private String observacoes;
 
 	@ManyToOne
 	@JoinColumn(name = "cle_end_id", nullable = false)
 	@NotNull(groups = {CreateClienteEndereco.class, UpdateClienteEndereco.class, DeleteClienteEndereco.class})
+	@NotEmpty(groups = {CreateClienteEndereco.class, UpdateClienteEndereco.class, DeleteClienteEndereco.class})
 	private Endereco endereco;
 
 	@ManyToOne
 	@JoinColumn(name = "cle_cli_id", nullable = false)
 	@NotNull(groups = {CreateClienteEndereco.class, UpdateClienteEndereco.class, DeleteClienteEndereco.class})
+	@NotEmpty(groups = {CreateClienteEndereco.class, UpdateClienteEndereco.class, DeleteClienteEndereco.class})
 	private Cliente cliente;
 }

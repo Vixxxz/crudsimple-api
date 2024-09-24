@@ -33,9 +33,13 @@ public class Endereco {
 
 	@ManyToOne
 	@JoinColumn(name = "end_bai_id", nullable = false)
+	@NotNull(groups = {CreateEndereco.class, UpdateEndereco.class})
+	@NotEmpty(groups = {CreateEndereco.class, UpdateEndereco.class})
 	private Bairro bairro;
 
 	@ManyToOne
 	@JoinColumn(name = "end_lgr_id", nullable = false)
+	@NotNull(groups = {CreateEndereco.class, UpdateEndereco.class})
+	@NotEmpty(groups = {CreateEndereco.class, UpdateEndereco.class})
 	private Logradouro logradouro;
 }

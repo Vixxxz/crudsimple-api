@@ -47,6 +47,11 @@ public class Transacao {
 	@DecimalMin(groups = {CreateTransacao.class, UpdateTransacao.class}, value = "00.01")
 	private float valorTotal;
 
+	@Column(name = "tra_qtd_total", nullable = false)
+	@NotNull (groups = {CreateTransacao.class, UpdateTransacao.class})
+	@NotEmpty(groups = {CreateTransacao.class, UpdateTransacao.class})
+	private Integer qtdTotal;
+
 	@Column(name = "tra_status", nullable = false, length = 30)
 	@NotNull (groups = {CreateTransacao.class, UpdateTransacao.class})
 	@NotEmpty(groups = {CreateTransacao.class, UpdateTransacao.class})
@@ -59,7 +64,13 @@ public class Transacao {
 
 	@ManyToOne
 	@JoinColumn(name = "tra_cli_id", nullable = false, updatable = false)
+	@NotNull(groups = {CartaoCredito.CreateCartaoCredito.class, CartaoCredito.UpdateCartaoCredito.class})
+	@NotEmpty(groups = {CartaoCredito.CreateCartaoCredito.class, CartaoCredito.UpdateCartaoCredito.class})
 	private Cliente cliente;
 
+	@OneToMany(mappedBy = "transacao")
+    private List<MercadoriaTransacao> mercadoriaVenda = new ArrayList<>();
 
+	@OneToMany(mappedBy = "transacao")
+    private List<Movimentacao> movimentacos = new ArrayList<>();
 }

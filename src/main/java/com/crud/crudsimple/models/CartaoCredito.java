@@ -16,8 +16,11 @@ import lombok.*;
 @Table(name = "cartao_credito")
 public class CartaoCredito {
 
-	public interface CreateCartaoCredito {}
-	public interface UpdateCartaoCredito {}
+	public interface CreateCartaoCredito {
+	}
+
+	public interface UpdateCartaoCredito {
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,5 +52,13 @@ public class CartaoCredito {
 
 	@ManyToOne
 	@JoinColumn(name = "car_ban_id", nullable = false)
+	@NotNull(groups = {CreateCartaoCredito.class, UpdateCartaoCredito.class})
+	@NotEmpty(groups = {CreateCartaoCredito.class, UpdateCartaoCredito.class})
 	private Bandeira bandeira;
+
+	@ManyToOne
+	@JoinColumn(name = "car_cli_id", nullable = false)
+	@NotNull(groups = {CreateCartaoCredito.class, UpdateCartaoCredito.class})
+	@NotEmpty(groups = {CreateCartaoCredito.class, UpdateCartaoCredito.class})
+	private Cliente cliente;
 }
