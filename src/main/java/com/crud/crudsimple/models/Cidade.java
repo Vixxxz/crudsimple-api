@@ -24,7 +24,7 @@ public class Cidade {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cid_id", unique = true, nullable = false)
+	@Column(name = "cid_id", unique = true, nullable = false, updatable = false)
 	private int idCidade;
 
 	@Column(name = "cid_nome", nullable = false, length = 100)

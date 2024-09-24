@@ -24,7 +24,7 @@ public class Pais {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "pai_id", unique = true, nullable = false)
+	@Column(name = "pai_id", unique = true, nullable = false, updatable = false)
 	private int idPais;
 
 	@Column(name = "pai_nome", nullable = false, length = 20)

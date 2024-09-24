@@ -1,75 +1,65 @@
 package com.crud.crudsimple.models;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+
+@Entity
+@Table(name = "transacao")
 public class Transacao {
 
+	public interface CreateTransacao {}
+	public interface UpdateTransacao {}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "tra_id", nullable = false, unique = true, updatable = false)
 	private int idTransacao;
+
+	@Column(name = "tra_dt_transacao", nullable = false)
+	@Temporal(TemporalType.DATE)
+	@NotNull (groups = {CreateTransacao.class, UpdateTransacao.class})
+	@NotEmpty(groups = {CreateTransacao.class, UpdateTransacao.class})
 	private LocalDate data;
+
+	@Column(name = "tra_hora_transacao", nullable = false)
+	@Temporal(TemporalType.TIME)
+	@NotNull(groups = {CreateTransacao.class, UpdateTransacao.class})
+	@NotEmpty(groups = {CreateTransacao.class, UpdateTransacao.class})
 	private LocalTime hora;
+
+	@Column(name = "tra_valor_total", nullable = false, precision = 9, scale = 2)
+	@NotNull (groups = {CreateTransacao.class, UpdateTransacao.class})
+	@NotEmpty(groups = {CreateTransacao.class, UpdateTransacao.class})
+	@DecimalMax(groups = {CreateTransacao.class, UpdateTransacao.class}, value = "99999999.99")
+	@DecimalMin(groups = {CreateTransacao.class, UpdateTransacao.class}, value = "00.01")
 	private float valorTotal;
-	private boolean status;
+
+	@Column(name = "tra_status", nullable = false, length = 30)
+	@NotNull (groups = {CreateTransacao.class, UpdateTransacao.class})
+	@NotEmpty(groups = {CreateTransacao.class, UpdateTransacao.class})
+	@Size(groups = {CreateTransacao.class, UpdateTransacao.class}, min = 1, max = 30)
+	private String status;
+
+	@Column(name = "tra_detalhes")
+	@Size(groups = {CreateTransacao.class, UpdateTransacao.class}, min = 1, max = 255)
 	private String detalhes;
-	private ArrayList<ItemVenda> itens;
 
-	public Transacao(int idTransacao, LocalDate data, LocalTime hora, float valorTotal, boolean status, String detalhes, ArrayList<ItemVenda> itens) {
-		this.idTransacao = idTransacao;
-		this.data = data;
-		this.hora = hora;
-		this.valorTotal = valorTotal;
-		this.status = status;
-		this.detalhes = detalhes;
-		this.itens = itens;
-	}
+	@ManyToOne
+	@JoinColumn(name = "tra_cli_id", nullable = false, updatable = false)
+	private Cliente cliente;
 
-	public int getIdTransacao() {
-		return idTransacao;
-	}
-
-	public void setIdTransacao(int idTransacao) {
-		this.idTransacao = idTransacao;
-	}
-
-	public LocalDate getData() {
-		return data;
-	}
-
-	public void setData(LocalDate data) {
-		this.data = data;
-	}
-
-	public LocalTime getHora() {
-		return hora;
-	}
-
-	public void setHora(LocalTime hora) {
-		this.hora = hora;
-	}
-
-	public float getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(float valorTotal) {
-		this.valorTotal = valorTotal;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-
-	public String getDetalhes() {
-		return detalhes;
-	}
-
-	public void setDetalhes(String detalhes) {
-		this.detalhes = detalhes;
-	}
 
 }

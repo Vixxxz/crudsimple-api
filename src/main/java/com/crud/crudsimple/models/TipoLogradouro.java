@@ -21,7 +21,7 @@ public class TipoLogradouro
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tpl_id", unique = true, nullable = false)
+    @Column(name = "tpl_id", unique = true, nullable = false, updatable = false)
     private Long id;
 
     @Column(name = "tpl_nome", nullable = false, length = 10)

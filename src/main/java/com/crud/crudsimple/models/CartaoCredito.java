@@ -21,7 +21,7 @@ public class CartaoCredito {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "car_id", unique = true, nullable = false)
+	@Column(name = "car_id", unique = true, nullable = false, updatable = false)
 	private int id;
 
 	@Column(name = "car_num", unique = true, nullable = false, length = 16)

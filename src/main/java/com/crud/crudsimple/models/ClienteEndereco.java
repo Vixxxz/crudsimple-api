@@ -19,8 +19,6 @@ import java.util.List;
 @Table(name = "cliente_endereco")
 public class ClienteEndereco {
 
-	//TODO: Rever a criação da classe com base nos diagramas e implementa-la
-
 	public interface CreateClienteEndereco {}
 	public interface UpdateClienteEndereco {}
 	public interface DeleteClienteEndereco {}
@@ -28,7 +26,7 @@ public class ClienteEndereco {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cle_id", unique = true, nullable = false)
+	@Column(name = "cle_id", unique = true, nullable = false, updatable = false)
 	private Long idCliEnd;
 
 	@Column(name = "cle_numero", nullable = false, length = 5)

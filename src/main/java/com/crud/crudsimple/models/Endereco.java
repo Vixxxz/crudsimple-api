@@ -22,7 +22,7 @@ public class Endereco {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "end_id", unique = true, nullable = false)
+	@Column(name = "end_id", unique = true, nullable = false, updatable = false)
 	private int idEndereco;
 
 	@Column(name = "end_cep", nullable = false, length = 8)

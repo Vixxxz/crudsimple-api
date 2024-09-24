@@ -25,7 +25,7 @@ public class Uf {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "uf_id", unique = true, nullable = false)
+	@Column(name = "uf_id", unique = true, nullable = false, updatable = false)
 	private int idUf;
 
 	@Column(name = "uf_nome", nullable = false, length = 3)

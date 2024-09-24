@@ -24,7 +24,7 @@ public class Bairro {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "bai_id", unique = true, nullable = false)
+	@Column(name = "bai_id", unique = true, nullable = false, updatable = false)
 	private Long idBairro;
 
 	@Column(name = "bai_nome", nullable = false, length = 50)

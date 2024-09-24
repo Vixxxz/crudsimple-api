@@ -23,7 +23,7 @@ public class Log {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "log_id", unique = true, nullable = false)
+	@Column(name = "log_id", unique = true, nullable = false, updatable = false)
 	private Long idLog;
 
 	@Column(name = "log_dia", nullable = false, length = 2)
