@@ -27,7 +27,7 @@ public class Mercadoria {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "mer_id", unique = true, nullable = false, updatable = false)
-	private int idMercadoria;
+	private Long idMercadoria;
 
 	@Column(name = "mer_categoria", nullable = false, length = 50)
 	@NotNull(groups = {CreateMercadoria.class, UpdateMercadoria.class})

@@ -22,7 +22,7 @@ public class Bandeira {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ban_id", unique = true, nullable = false, updatable = false)
-	private int idBandeira;
+	private Long idBandeira;
 
 	@Column(name = "ban_nome", nullable = false, length = 20)
 	@NotNull

@@ -26,7 +26,7 @@ public class Endereco {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "end_id", unique = true, nullable = false, updatable = false)
-	private int idEndereco;
+	private Long idEndereco;
 
 	@Column(name = "end_cep", nullable = false, length = 8)
 	@NotNull(groups = {CreateEndereco.class, UpdateEndereco.class})

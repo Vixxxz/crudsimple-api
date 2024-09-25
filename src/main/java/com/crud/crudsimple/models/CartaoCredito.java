@@ -25,7 +25,7 @@ public class CartaoCredito {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "car_id", unique = true, nullable = false, updatable = false)
-	private int id;
+	private Long idCartaoCredito;
 
 	@Column(name = "car_num", unique = true, nullable = false, length = 16)
 	@NotNull(groups = {CreateCartaoCredito.class, UpdateCartaoCredito.class})

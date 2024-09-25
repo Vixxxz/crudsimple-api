@@ -26,7 +26,7 @@ public class Uf {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "uf_id", unique = true, nullable = false, updatable = false)
-	private int idUf;
+	private Long idUf;
 
 	@Column(name = "uf_nome", nullable = false, length = 3)
 	@NotNull(groups = {CreateUf.class, UpdateUf.class})

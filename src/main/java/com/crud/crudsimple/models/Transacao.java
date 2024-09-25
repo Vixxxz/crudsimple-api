@@ -26,7 +26,7 @@ public class Transacao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "tra_id", nullable = false, unique = true, updatable = false)
-	private int idTransacao;
+	private Long idTransacao;
 
 	@Column(name = "tra_dt_transacao", nullable = false)
 	@Temporal(TemporalType.DATE)

@@ -25,7 +25,7 @@ public class Logradouro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "lgr_id", unique = true, nullable = false, updatable = false)
-	private int idLogradouro;
+	private Long idLogradouro;
 
 	@Column(name = "lgr_nome", nullable = false, length = 100)
 	@NotNull(groups = {CreateLogradouro.class, UpdateLogradouro.class})
