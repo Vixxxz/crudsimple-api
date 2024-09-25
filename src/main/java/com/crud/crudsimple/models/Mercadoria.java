@@ -41,7 +41,7 @@ public class Mercadoria {
 	@Size(groups = {CreateMercadoria.class, UpdateMercadoria.class}, min = 2, max = 100)
 	private String nome;
 
-	@Column(name = "mer_valor", nullable = false, precision = 7, scale = 2)
+	@Column(name = "mer_valor", nullable = false)
 	@NotNull(groups = {CreateMercadoria.class, UpdateMercadoria.class})
 	@NotEmpty(groups = {CreateMercadoria.class, UpdateMercadoria.class})
 	@DecimalMax(groups = {CreateMercadoria.class, UpdateMercadoria.class}, value = "99999.99")

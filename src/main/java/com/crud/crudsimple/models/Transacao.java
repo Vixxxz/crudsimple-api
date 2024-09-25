@@ -40,7 +40,7 @@ public class Transacao {
 	@NotEmpty(groups = {CreateTransacao.class, UpdateTransacao.class})
 	private LocalTime hora;
 
-	@Column(name = "tra_valor_total", nullable = false, precision = 9, scale = 2)
+	@Column(name = "tra_valor_total", nullable = false)
 	@NotNull (groups = {CreateTransacao.class, UpdateTransacao.class})
 	@NotEmpty(groups = {CreateTransacao.class, UpdateTransacao.class})
 	@DecimalMax(groups = {CreateTransacao.class, UpdateTransacao.class}, value = "99999999.99")
