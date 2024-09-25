@@ -34,7 +34,7 @@ public class Cliente {
 	@Column(name = "cli_rank", nullable = false)
 	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
 	@NotEmpty(groups = {CreateCliente.class, UpdateCliente.class})
-	private Integer ranking;
+	private Integer ranking = 1;
 
 	@Column(name = "cli_nome", nullable = false, length = 100)
 	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})

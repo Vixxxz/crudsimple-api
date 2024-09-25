@@ -69,7 +69,7 @@ public class Transacao {
 	private Cliente cliente;
 
 	@OneToMany(mappedBy = "transacao")
-    private List<MercadoriaTransacao> mercadoriaVenda = new ArrayList<>();
+    private List<MercadoriaTransacao> pedidos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "transacao")
     private List<Movimentacao> movimentacos = new ArrayList<>();

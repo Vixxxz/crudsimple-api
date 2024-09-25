@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -30,6 +33,9 @@ public class Endereco {
 	@NotEmpty(groups = {CreateEndereco.class, UpdateEndereco.class})
 	@Size(groups = {CreateEndereco.class, UpdateEndereco.class}, min = 8, max = 8)
 	private String cep;
+
+	@OneToMany(mappedBy = "endereco")
+	private List<ClienteEndereco> enderecos = new ArrayList<ClienteEndereco>();
 
 	@ManyToOne
 	@JoinColumn(name = "end_bai_id", nullable = false)
