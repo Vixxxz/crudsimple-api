@@ -1,7 +1,6 @@
 package com.crud.crudsimple.repositories;
 
 import com.crud.crudsimple.models.Bairro;
-import com.crud.crudsimple.models.Cidade;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +17,4 @@ public interface BairroRepository extends JpaRepository<Bairro, Long>
     List<Bairro> findByCidade_cidade(String cidade);
 
     Optional<Bairro> findByBairro(String bairro);
-
 }
