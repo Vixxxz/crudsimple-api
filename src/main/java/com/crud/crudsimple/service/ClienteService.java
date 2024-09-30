@@ -1,6 +1,7 @@
 package com.crud.crudsimple.service;
 
 import com.crud.crudsimple.models.Cliente;
+import com.crud.crudsimple.queryFilters.ClienteQueryFilter;
 import com.crud.crudsimple.repositories.ClienteRepository;
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Service
 public class ClienteService {
     private final ClienteRepository clienteRepository;
+    private final ClienteQueryFilter clienteQueryFilter;
 
     public Cliente findById(Long id) {
         Optional<Cliente> cliente = clienteRepository.findById(id);
@@ -23,7 +25,7 @@ public class ClienteService {
     }
 
     public List<Cliente> findAll() {
-        return clienteRepository.findAll();
+        return clienteRepository.findAll(clienteQueryFilter.toSpecification());
     }
 
     @Transactional
