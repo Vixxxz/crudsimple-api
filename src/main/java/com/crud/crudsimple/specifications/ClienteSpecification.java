@@ -162,4 +162,24 @@ public class ClienteSpecification {
             return builder.equal(bandeiraJoin.get("bandeira"), bandeira);
         };
     }
+
+    public static Specification<Cliente> findByIdTransacao(Long idTransacao){
+        return(root, query, builder) -> {
+            if (idTransacao == null) {
+                return null;
+            }
+            Join<Cliente, Transacao> transacaoJoin = root.join("transacoes");
+            return builder.equal(transacaoJoin.get("idTransacao"), idTransacao);
+        };
+    }
+
+    public static Specification<Cliente> findByIdLog(Long idLog){
+        return (root, query, builder) -> {
+            if (idLog == null) {
+                return null;
+            }
+            Join<Cliente, Log> logJoin = root.join("logs");
+            return builder.equal(logJoin.get("idLog"), idLog);
+        };
+    }
 }

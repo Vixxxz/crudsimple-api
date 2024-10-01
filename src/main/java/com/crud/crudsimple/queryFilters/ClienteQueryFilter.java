@@ -28,6 +28,8 @@ public class ClienteQueryFilter
     private String uf;
     private String pais;
     private String bandeira;
+    private Long idTransacao;
+    private Long idLog;
 
     public Specification<Cliente> toSpecification() {
         Specification<Cliente> clienteSpec = Specification.where(null);
@@ -46,6 +48,8 @@ public class ClienteQueryFilter
         clienteSpec = addSpecification(clienteSpec, uf, ClienteSpecification::findByUf);
         clienteSpec = addSpecification(clienteSpec, pais, ClienteSpecification::findByPais);
         clienteSpec = addSpecification(clienteSpec, bandeira, ClienteSpecification::findByBandeira);
+        clienteSpec = addSpecification(clienteSpec, idTransacao, ClienteSpecification::findByIdTransacao);
+        clienteSpec = addSpecification(clienteSpec, idLog, ClienteSpecification::findByIdLog);
 
         return clienteSpec;
     }
