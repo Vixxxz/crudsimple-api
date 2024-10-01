@@ -38,6 +38,6 @@ public class Uf {
 	@JoinColumn(name = "uf_pai_id", nullable = false)
 	private Pais pais;
 
-	@OneToMany(mappedBy = "uf")
+	@OneToMany(mappedBy = "uf", cascade = CascadeType.ALL)
 	private List<Cidade> cidades = new ArrayList<Cidade>();
 }

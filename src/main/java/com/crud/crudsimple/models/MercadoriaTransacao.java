@@ -27,17 +27,14 @@ public class MercadoriaTransacao
     @ManyToOne
     @JoinColumn(name = "mtr_tra_id", nullable = false)
     @NotNull(groups = {CreateMercadoriaTransacao.class, UpdateMercadoriaTransacao.class})
-    @NotEmpty(groups = {CreateMercadoriaTransacao.class, UpdateMercadoriaTransacao.class})
     private Transacao transacao;
 
     @ManyToOne
     @JoinColumn(name = "mtr_mer_id", nullable = false)
     @NotNull(groups = {CreateMercadoriaTransacao.class, UpdateMercadoriaTransacao.class})
-    @NotEmpty(groups = {CreateMercadoriaTransacao.class, UpdateMercadoriaTransacao.class})
     private Mercadoria mercadoria;
 
     @Column(name = "mtr_quantidade", nullable = false)
     @NotNull(groups = {CreateMercadoriaTransacao.class, UpdateMercadoriaTransacao.class})
-    @NotEmpty(groups = {CreateMercadoriaTransacao.class, UpdateMercadoriaTransacao.class})
     private Integer quantidade;
 }

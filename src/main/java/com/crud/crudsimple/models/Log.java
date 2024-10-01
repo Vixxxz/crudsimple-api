@@ -28,40 +28,33 @@ public class Log {
 
 	@Column(name = "log_dia", nullable = false, length = 2)
 	@NotNull(groups = CreateLog.class)
-	@NotEmpty(groups = CreateLog.class)
-	@Size(groups = CreateLog.class, min = 2, max = 2)
 	private LocalDate dia;
 
 	@Column(name = "log_mes", nullable = false, length = 2)
 	@NotNull(groups = CreateLog.class)
-	@NotEmpty(groups = CreateLog.class)
-	@Size(groups = CreateLog.class, min = 2, max = 2)
 	private LocalDate mes;
 
 	@Column(name = "log_ano", nullable = false, length = 4)
 	@NotNull(groups = CreateLog.class)
-	@NotEmpty(groups = CreateLog.class)
-	@Size(groups = CreateLog.class, min = 4, max = 4)
 	private LocalDate ano;
 
 	@Column(name = "log_hora", nullable = false, length = 8)
 	@NotNull(groups = CreateLog.class)
-	@NotEmpty(groups = CreateLog.class)
-	@Size(groups = CreateLog.class, min = 8, max = 8)
 	private LocalTime hora;
 
 	@ManyToOne
 	@JoinColumn(name = "log_cli_id", nullable = false)
+	@NotNull (groups = CreateLog.class)
 	private Cliente cliente;
 
 	@Column(name = "log_operacao_realizada", nullable = false, length = 100)
-	@NotEmpty(groups = CreateLog.class)
+	@NotNull(groups = CreateLog.class)
 	@NotEmpty(groups = CreateLog.class)
 	@Size(groups = CreateLog.class, min = 1, max = 100)
 	private String operacao;
 
 	@Column(name = "log_dados_alterados", nullable = false, length = 255)
-	@NotEmpty(groups = CreateLog.class)
+	@NotNull(groups = CreateLog.class)
 	@NotEmpty(groups = CreateLog.class)
 	@Size(groups = CreateLog.class, min = 1, max = 255)
 	private String dadosAlterados;

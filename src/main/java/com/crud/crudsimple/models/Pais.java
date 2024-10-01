@@ -33,6 +33,6 @@ public class Pais {
 	@Size(groups = {CreatePais.class, UpdatePais.class}, min = 2, max = 20)
 	private String pais;
 
-	@OneToMany(mappedBy = "pais")
+	@OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
 	private List<Uf> ufs = new ArrayList<Uf>();
 }

@@ -1,7 +1,6 @@
 package com.crud.crudsimple.service;
 
-import com.crud.crudsimple.models.Cliente;
-import com.crud.crudsimple.models.ClienteEndereco;
+import com.crud.crudsimple.models.*;
 import com.crud.crudsimple.queryFilters.ClienteQueryFilter;
 import com.crud.crudsimple.repositories.ClienteRepository;
 import org.springframework.stereotype.Service;
@@ -35,6 +34,41 @@ public class ClienteService {
         cliente.setIdCliente(null);
         cliente = clienteRepository.save(cliente);
         return cliente;
+    }
+
+    @Transactional
+    public void addEndereco(Long idCliente, ClienteEndereco endereco) {
+        Cliente cliente = findById(idCliente);
+        endereco.setIdCliEnd(null);
+        cliente.getEnderecos().add(endereco);
+        clienteRepository.save(cliente);
+    }
+
+    @Transactional
+    public void addCartao(Long idCliente, CartaoCredito cartao) {
+        Cliente cliente = findById(idCliente);
+        cartao.setCliente(cliente);
+        cartao.setIdCartaoCredito(null);
+        cliente.getCartoes().add(cartao);
+        clienteRepository.save(cliente);
+    }
+
+    @Transactional
+    public void addTransactao(Long idCliente, Transacao transacao){
+        Cliente cliente = findById(idCliente);
+        transacao.setCliente(cliente);
+        transacao.setIdTransacao(null);
+        cliente.getTransacoes().add(transacao);
+        clienteRepository.save(cliente);
+    }
+
+    @Transactional
+    public void addLog(Long idCliente, Log log){
+        Cliente cliente = findById(idCliente);
+        log.setCliente(cliente);
+        log.setIdLog(null);
+        cliente.getLogs().add(log);
+        clienteRepository.save(cliente);
     }
 
     @Transactional
@@ -78,6 +112,30 @@ public class ClienteService {
 //            cliente.getEnderecos().add(newEndereco);
 //            clienteRepository.save(cliente);
 //        }
+    }
+
+    public void deleteEndereco(Long idCliente, Long idEndereco)
+    {
+        Cliente cliente = findById(idCliente);
+        boolean deletado;
+        deletado = cliente.getEnderecos().removeIf(e -> Objects.equals(e.getIdCliEnd(), idEndereco));
+        if (!deletado) {
+            throw new RuntimeException("Não foi possível excluir o endereço. Endereço não encontrado.");
+        }
+    }
+
+    public void deleteCartao(Long idCliente, Long idCartao){
+        Cliente cliente = findById(idCliente);
+        boolean deletado;
+        deletado = cliente.getCartoes().removeIf(e -> Objects.equals(e.getIdCartaoCredito(), idCartao));
+        if (!deletado) {
+            throw new RuntimeException("Não foi possível excluir o cartão. Cartão não encontrado.");
+        }
+    }
+
+    public void deleteCliente (Long idCliente){
+        Cliente cliente = findById(idCliente);
+        clienteRepository.delete(cliente);
     }
 }
 

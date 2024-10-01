@@ -33,7 +33,6 @@ public class Cliente {
 
 	@Column(name = "cli_rank", nullable = false)
 	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
-	@NotEmpty(groups = {CreateCliente.class, UpdateCliente.class})
 	private Integer ranking = 1;
 
 	@Column(name = "cli_nome", nullable = false, length = 100)
@@ -75,27 +74,26 @@ public class Cliente {
 	private String email;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	@Column(name = "cli_senha", nullable = false, length = 255, unique = true)
+	@Column(name = "cli_senha", nullable = false, length = 255)
 	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
 	@NotEmpty(groups = {CreateCliente.class, UpdateCliente.class})
 	@Size(groups = {CreateCliente.class, UpdateCliente.class}, min = 8, max = 255)
 	private String senha;
 
-	@Column(name = "tra_dt_nascimento", nullable = false)
+	@Column(name = "cli_dt_nascimento", nullable = false)
 	@Temporal(TemporalType.DATE)
 	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
-	@NotEmpty(groups = {CreateCliente.class, UpdateCliente.class})
 	private LocalDate dataNascimento;
 
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<ClienteEndereco> enderecos = new ArrayList<ClienteEndereco>();
 
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<CartaoCredito> cartoes = new ArrayList<CartaoCredito>();
 
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private List<Transacao> transacoes = new ArrayList<Transacao>();
 
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private List<Log> logs = new ArrayList<Log>();
 }

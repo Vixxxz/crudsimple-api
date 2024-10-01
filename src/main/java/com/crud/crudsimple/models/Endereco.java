@@ -34,18 +34,16 @@ public class Endereco {
 	@Size(groups = {CreateEndereco.class, UpdateEndereco.class}, min = 8, max = 8)
 	private String cep;
 
-	@OneToMany(mappedBy = "endereco")
+	@OneToMany(mappedBy = "endereco", cascade = CascadeType.ALL)
 	private List<ClienteEndereco> enderecos = new ArrayList<ClienteEndereco>();
 
 	@ManyToOne
 	@JoinColumn(name = "end_bai_id", nullable = false)
 	@NotNull(groups = {CreateEndereco.class, UpdateEndereco.class})
-	@NotEmpty(groups = {CreateEndereco.class, UpdateEndereco.class})
 	private Bairro bairro;
 
 	@ManyToOne
 	@JoinColumn(name = "end_lgr_id", nullable = false)
 	@NotNull(groups = {CreateEndereco.class, UpdateEndereco.class})
-	@NotEmpty(groups = {CreateEndereco.class, UpdateEndereco.class})
 	private Logradouro logradouro;
 }

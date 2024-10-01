@@ -47,18 +47,15 @@ public class CartaoCredito {
 
 	@Column(name = "car_preferencial", nullable = false)
 	@NotNull(groups = {CreateCartaoCredito.class, UpdateCartaoCredito.class})
-	@NotEmpty(groups = {CreateCartaoCredito.class, UpdateCartaoCredito.class})
 	private boolean preferencial;
 
 	@ManyToOne
 	@JoinColumn(name = "car_ban_id", nullable = false)
 	@NotNull(groups = {CreateCartaoCredito.class, UpdateCartaoCredito.class})
-	@NotEmpty(groups = {CreateCartaoCredito.class, UpdateCartaoCredito.class})
 	private Bandeira bandeira;
 
 	@ManyToOne
 	@JoinColumn(name = "car_cli_id", nullable = false)
 	@NotNull(groups = {CreateCartaoCredito.class, UpdateCartaoCredito.class})
-	@NotEmpty(groups = {CreateCartaoCredito.class, UpdateCartaoCredito.class})
 	private Cliente cliente;
 }

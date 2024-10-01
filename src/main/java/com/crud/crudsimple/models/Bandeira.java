@@ -30,6 +30,6 @@ public class Bandeira {
 	@Size(min = 2, max = 50)
 	private String bandeira;
 
-	@OneToMany(mappedBy = "bandeira")
+	@OneToMany(mappedBy = "bandeira", cascade = CascadeType.ALL)
 	private List<CartaoCredito> cartoes = new ArrayList<CartaoCredito>();
 }

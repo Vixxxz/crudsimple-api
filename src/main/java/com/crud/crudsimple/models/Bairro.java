@@ -35,8 +35,9 @@ public class Bairro {
 
 	@ManyToOne
 	@JoinColumn(name = "bai_cid_id", nullable = false)
+	@NotNull (groups = {CreateBairro.class, UpdateBairro.class})
 	private Cidade cidade;
 
-	@OneToMany(mappedBy = "bairro")
+	@OneToMany(mappedBy = "bairro", cascade = CascadeType.ALL)
 	private List<Endereco> endereco = new ArrayList<Endereco>();
 }

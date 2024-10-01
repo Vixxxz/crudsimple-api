@@ -43,14 +43,13 @@ public class Mercadoria {
 
 	@Column(name = "mer_valor", nullable = false)
 	@NotNull(groups = {CreateMercadoria.class, UpdateMercadoria.class})
-	@NotEmpty(groups = {CreateMercadoria.class, UpdateMercadoria.class})
 	@DecimalMax(groups = {CreateMercadoria.class, UpdateMercadoria.class}, value = "99999.99")
 	@DecimalMin(groups = {CreateMercadoria.class, UpdateMercadoria.class}, value = "0.00")
 	private float valor;
 
-	@OneToMany(mappedBy = "mercadoria")
+	@OneToMany(mappedBy = "mercadoria", cascade = CascadeType.ALL)
 	private List<MercadoriaTransacao> pedidos = new ArrayList<MercadoriaTransacao>();
 
-	@OneToMany(mappedBy = "mercadoria")
+	@OneToMany(mappedBy = "mercadoria", cascade = CascadeType.ALL)
 	private List<Movimentacao> movimentacoes = new ArrayList<Movimentacao>();
 }

@@ -31,25 +31,21 @@ public class Transacao {
 	@Column(name = "tra_dt_transacao", nullable = false)
 	@Temporal(TemporalType.DATE)
 	@NotNull (groups = {CreateTransacao.class, UpdateTransacao.class})
-	@NotEmpty(groups = {CreateTransacao.class, UpdateTransacao.class})
 	private LocalDate data;
 
 	@Column(name = "tra_hora_transacao", nullable = false)
 	@Temporal(TemporalType.TIME)
 	@NotNull(groups = {CreateTransacao.class, UpdateTransacao.class})
-	@NotEmpty(groups = {CreateTransacao.class, UpdateTransacao.class})
 	private LocalTime hora;
 
 	@Column(name = "tra_valor_total", nullable = false)
 	@NotNull (groups = {CreateTransacao.class, UpdateTransacao.class})
-	@NotEmpty(groups = {CreateTransacao.class, UpdateTransacao.class})
 	@DecimalMax(groups = {CreateTransacao.class, UpdateTransacao.class}, value = "99999999.99")
 	@DecimalMin(groups = {CreateTransacao.class, UpdateTransacao.class}, value = "00.01")
 	private float valorTotal;
 
 	@Column(name = "tra_qtd_total", nullable = false)
 	@NotNull (groups = {CreateTransacao.class, UpdateTransacao.class})
-	@NotEmpty(groups = {CreateTransacao.class, UpdateTransacao.class})
 	private Integer qtdTotal;
 
 	@Column(name = "tra_status", nullable = false, length = 30)
@@ -68,9 +64,9 @@ public class Transacao {
 	@NotEmpty(groups = {CartaoCredito.CreateCartaoCredito.class, CartaoCredito.UpdateCartaoCredito.class})
 	private Cliente cliente;
 
-	@OneToMany(mappedBy = "transacao")
+	@OneToMany(mappedBy = "transacao", cascade = CascadeType.ALL)
     private List<MercadoriaTransacao> pedidos = new ArrayList<>();
 
-	@OneToMany(mappedBy = "transacao")
+	@OneToMany(mappedBy = "transacao", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     private List<Movimentacao> movimentacos = new ArrayList<>();
 }

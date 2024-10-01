@@ -35,8 +35,9 @@ public class Cidade {
 
 	@ManyToOne
 	@JoinColumn(name = "cid_uf_id", nullable = false)
+	@NotNull (groups = {CreateCidade.class, UpdateCidade.class})
 	private Uf uf;
 
-	@OneToMany(mappedBy = "cidade")
+	@OneToMany(mappedBy = "cidade", cascade = CascadeType.ALL)
 	private List<Bairro> bairros = new ArrayList<Bairro>();
 }

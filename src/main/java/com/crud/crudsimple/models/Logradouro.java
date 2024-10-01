@@ -35,8 +35,9 @@ public class Logradouro {
 
 	@ManyToOne
 	@JoinColumn(name = "tp_lgr_id", nullable = false)
+	@NotNull(groups = {CreateLogradouro.class, UpdateLogradouro.class})
 	private TipoLogradouro tpLogradouro;
 
-	@OneToMany(mappedBy = "logradouro")
+	@OneToMany(mappedBy = "logradouro", cascade = CascadeType.ALL)
 	private List<Endereco> endereco = new ArrayList<Endereco>();
 }
