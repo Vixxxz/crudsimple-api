@@ -12,13 +12,7 @@ import java.util.Optional;
 @Service
 public class TipoLogradouroService {
     private final TipoLogradouroRepository tipoLogradouroRepository;
-    private final TipoLogradouroService tipoLogradouroService;
-
-    @Transactional
-    public TipoLogradouro createTipoLogradouro(TipoLogradouro tpLogradouro) {
-        tpLogradouro.setId(null);
-        return tipoLogradouroRepository.save(tpLogradouro);
-    }
+    private final TipoLogradouroCreateService tipoLogradouroCreateService;
 
     @Transactional
     public Logradouro addLogradouro(Long idTpLogradouro, Logradouro logradouro) {
@@ -41,7 +35,7 @@ public class TipoLogradouroService {
 
     public TipoLogradouro findOrCreateTipoLogradouro(TipoLogradouro tipoLogradouro) {
         return verificaExistencia(tipoLogradouro.getTpLogradouro())
-                .orElseGet(() -> tipoLogradouroService.createTipoLogradouro(tipoLogradouro));
+                .orElseGet(() -> tipoLogradouroCreateService.createTipoLogradouro(tipoLogradouro));
     }
 }
 

@@ -12,13 +12,7 @@ import java.util.Optional;
 @Service
 public class PaisService {
     private final PaisRepository paisRepository;
-    private final PaisService paisService;
-
-    @Transactional
-    public Pais createPais(Pais pais) {
-        pais.setIdPais(null);
-        return paisRepository.save(pais);
-    }
+    private final PaisCreateService paisCreateService;
 
     @Transactional
     public Uf addUf(Long idPais, Uf uf){
@@ -41,6 +35,6 @@ public class PaisService {
 
     public Pais findOrCreatePais(Pais pais) {
         return verificaExistencia(pais.getPais())
-                .orElseGet(() -> paisService.createPais(pais)); //Auto invoca a propria classe, pois o spring não consegue implementar o @Transactional em metodos autoinvocados
+                .orElseGet(() -> paisCreateService.createPais(pais));
     }
 }

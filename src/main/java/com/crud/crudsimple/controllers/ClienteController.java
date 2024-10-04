@@ -14,9 +14,10 @@ import java.net.URI;
 import java.util.List;
 
 @AllArgsConstructor
+
+
 @RestController
 @RequestMapping("/cliente")
-@Validated
 public class ClienteController {
     private final ClienteService clienteService;
 
