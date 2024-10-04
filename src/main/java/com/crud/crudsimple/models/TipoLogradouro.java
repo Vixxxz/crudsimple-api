@@ -31,5 +31,5 @@ public class TipoLogradouro
     private String tpLogradouro;
 
     @OneToMany(mappedBy = "tpLogradouro")
-    private List<Logradouro> logradouro = new ArrayList<>();
+    private List<Logradouro> logradouros = new ArrayList<>();
 }

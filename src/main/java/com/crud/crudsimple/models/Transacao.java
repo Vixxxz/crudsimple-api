@@ -65,8 +65,8 @@ public class Transacao {
 	private Cliente cliente;
 
 	@OneToMany(mappedBy = "transacao", cascade = CascadeType.ALL)
-    private List<MercadoriaTransacao> pedidos = new ArrayList<>();
+    private List<MercadoriaTransacao> itensTransacao = new ArrayList<>();
 
 	@OneToMany(mappedBy = "transacao", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
-    private List<Movimentacao> movimentacos = new ArrayList<>();
+    private List<Movimentacao> movimentacoes = new ArrayList<>();
 }

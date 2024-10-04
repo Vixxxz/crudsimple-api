@@ -2,7 +2,6 @@ package com.crud.crudsimple.models;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 

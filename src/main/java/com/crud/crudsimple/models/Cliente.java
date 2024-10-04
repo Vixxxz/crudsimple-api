@@ -86,6 +86,7 @@ public class Cliente {
 	private LocalDate dataNascimento;
 
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
 	private List<ClienteEndereco> enderecos = new ArrayList<ClienteEndereco>();
 
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)

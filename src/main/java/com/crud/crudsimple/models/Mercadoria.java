@@ -47,9 +47,9 @@ public class Mercadoria {
 	@DecimalMin(groups = {CreateMercadoria.class, UpdateMercadoria.class}, value = "0.00")
 	private float valor;
 
-	@OneToMany(mappedBy = "mercadoria", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "mercadoria")
 	private List<MercadoriaTransacao> pedidos = new ArrayList<MercadoriaTransacao>();
 
-	@OneToMany(mappedBy = "mercadoria", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "mercadoria")
 	private List<Movimentacao> movimentacoes = new ArrayList<Movimentacao>();
 }

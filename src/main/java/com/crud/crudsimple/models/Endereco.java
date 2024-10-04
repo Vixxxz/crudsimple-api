@@ -34,7 +34,7 @@ public class Endereco {
 	@Size(groups = {CreateEndereco.class, UpdateEndereco.class}, min = 8, max = 8)
 	private String cep;
 
-	@OneToMany(mappedBy = "endereco", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "endereco")
 	private List<ClienteEndereco> enderecos = new ArrayList<ClienteEndereco>();
 
 	@ManyToOne

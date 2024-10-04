@@ -39,5 +39,5 @@ public class Bairro {
 	private Cidade cidade;
 
 	@OneToMany(mappedBy = "bairro", cascade = CascadeType.ALL)
-	private List<Endereco> endereco = new ArrayList<Endereco>();
+	private List<Endereco> enderecos = new ArrayList<Endereco>();
 }
