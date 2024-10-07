@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -26,9 +27,13 @@ public class CidadeService {
     @Transactional
     public Bairro addBairro(Long idCidade, Bairro bairro) {
         Cidade cidade = findById(idCidade);
+        bairro.setCidade(cidade);
         cidade.getBairros().add(bairro);
         cidadeRepository.save(cidade);
-        return bairro;
+        return cidade.getBairros().stream()
+                .filter(bairroExistente -> bairroExistente.equals(bairro))
+                .findFirst()
+                .orElseThrow(()->new RuntimeException("Não foi possível encontrar o bairro."));
     }
 
     public Cidade findById(Long idCidade) {

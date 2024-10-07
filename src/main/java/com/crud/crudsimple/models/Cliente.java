@@ -1,5 +1,6 @@
 package com.crud.crudsimple.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -60,10 +61,10 @@ public class Cliente {
 	@Size(groups = {CreateCliente.class, UpdateCliente.class}, min = 2, max = 100)
 	private String tipoTelefone;
 
-	@Column(name = "cli_telefone", nullable = false, length = 14)
+	@Column(name = "cli_telefone", nullable = false, length = 15)
 	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
 	@NotEmpty(groups = {CreateCliente.class, UpdateCliente.class})
-	@Size(groups = {CreateCliente.class, UpdateCliente.class}, min = 14, max = 14)
+	@Size(groups = {CreateCliente.class, UpdateCliente.class}, min = 9, max = 15)
 	private String telefone;
 
 	@Column(name = "cli_email", nullable = false, length = 100, unique = true)
@@ -85,6 +86,7 @@ public class Cliente {
 	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
 	private LocalDate dataNascimento;
 
+	@JsonManagedReference //insere no json os enderecos
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
 	private List<ClienteEndereco> enderecos = new ArrayList<ClienteEndereco>();

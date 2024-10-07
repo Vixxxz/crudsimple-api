@@ -1,5 +1,6 @@
 package com.crud.crudsimple.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -30,6 +31,7 @@ public class TipoLogradouro
     @Size(min = 2, max = 10)
     private String tpLogradouro;
 
-    @OneToMany(mappedBy = "tpLogradouro")
+    @JsonBackReference
+    @OneToMany(mappedBy = "tpLogradouro", cascade = CascadeType.ALL)
     private List<Logradouro> logradouros = new ArrayList<>();
 }

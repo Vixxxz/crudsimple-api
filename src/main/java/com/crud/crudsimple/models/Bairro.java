@@ -1,5 +1,7 @@
 package com.crud.crudsimple.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(of = {"bairro", "cidade"})
 
 @Entity
 @Table(name = "bairro")
@@ -33,11 +35,13 @@ public class Bairro {
 	@Size(groups = {CreateBairro.class, UpdateBairro.class}, min = 5, max = 50)
 	private String bairro;
 
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "bai_cid_id", nullable = false)
 	@NotNull (groups = {CreateBairro.class, UpdateBairro.class})
 	private Cidade cidade;
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "bairro", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<Endereco>();
 }

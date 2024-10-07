@@ -28,9 +28,13 @@ public class LogradouroService {
     @Transactional
     public Endereco addEndereco(Long idLogradouro, Endereco endereco) {
         Logradouro logradouro = findById(idLogradouro);
+        endereco.setLogradouro(logradouro);
         logradouro.getEndereco().add(endereco);
         logradouroRepository.save(logradouro);
-        return endereco;
+        return logradouro.getEndereco().stream()
+                .filter(enderecoExistente -> enderecoExistente.equals(endereco))
+                .findFirst()
+                .orElseThrow(()->new RuntimeException("Endereço não encontrado"));
     }
 
     public Logradouro findById(Long idLogradouro) {

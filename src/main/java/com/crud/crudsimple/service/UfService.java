@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.Optional;
 @AllArgsConstructor
 @Service
@@ -24,9 +25,13 @@ public class UfService {
     @Transactional
     public Cidade addCidade(Long idUf, Cidade cidade){
         Uf uf = findById(idUf);
+        cidade.setUf(uf);
         uf.getCidades().add(cidade);
         ufRepository.save(uf);
-        return cidade;
+        return uf.getCidades().stream()
+                .filter(cidadeExistente -> cidadeExistente.equals(cidade))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Cidade não encontrada"));
     }
 
     public Uf findById(Long idUf){

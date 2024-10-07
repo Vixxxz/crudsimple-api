@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -25,9 +26,13 @@ public class BairroService {
     @Transactional
     public Endereco addEndereco(Long idBairro, Endereco endereco) {
         Bairro bairro = findById(idBairro);
+        endereco.setBairro(bairro);
         bairro.getEnderecos().add(endereco);
         bairroRepository.save(bairro);
-        return endereco;
+        return bairro.getEnderecos().stream()
+                .filter(enderecoExistente -> enderecoExistente.equals(endereco))
+                .findFirst()
+                .orElseThrow(()->new RuntimeException("Endereço não encontrado"));
     }
 
     public Bairro findById(Long idBairro) {

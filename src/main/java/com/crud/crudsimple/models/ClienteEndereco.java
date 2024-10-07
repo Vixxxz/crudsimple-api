@@ -1,5 +1,7 @@
 package com.crud.crudsimple.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -46,11 +48,13 @@ public class ClienteEndereco {
 	@Size(groups = {CreateClienteEndereco.class, UpdateClienteEndereco.class}, min = 0, max = 255)
 	private String observacoes;
 
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "cle_end_id", nullable = false)
 	@NotNull(groups = {CreateClienteEndereco.class, UpdateClienteEndereco.class})
 	private Endereco endereco;
 
+	@JsonBackReference //não insere no json a referencia do cliente
 	@ManyToOne
 	@JoinColumn(name = "cle_cli_id", nullable = false)
 	@NotNull(groups = {CreateClienteEndereco.class, UpdateClienteEndereco.class})

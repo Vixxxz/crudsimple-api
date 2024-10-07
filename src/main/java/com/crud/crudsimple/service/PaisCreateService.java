@@ -14,7 +14,8 @@ public class PaisCreateService {
     @Transactional
     public Pais createPais(Pais pais) {
         pais.setIdPais(null);
-        return paisRepository.save(pais);
+        Pais novoPais = paisRepository.save(pais);
+        return novoPais;
     }
 
 }

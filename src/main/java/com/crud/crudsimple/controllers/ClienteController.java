@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cliente")
+@Validated
 public class ClienteController {
     private final ClienteService clienteService;
 

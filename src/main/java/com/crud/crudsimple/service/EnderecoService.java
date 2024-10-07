@@ -21,12 +21,13 @@ public class EnderecoService {
     }
 
     @Transactional
-    public Endereco atualizaEndereco(Endereco endereco, Pais pais, Uf uf, Cidade cidade, Bairro bairro, Logradouro logradouro) {
+    public Endereco atualizaEndereco(Endereco endereco, Pais pais, Uf uf, Cidade cidade, Bairro bairro, Logradouro logradouro, ClienteEndereco enderecoVinculado) {
         endereco.getBairro().getCidade().getUf().setPais(pais);
         endereco.getBairro().getCidade().setUf(uf);
         endereco.getBairro().setCidade(cidade);
         endereco.setBairro(bairro);
         endereco.setLogradouro(logradouro);
+        endereco.getEnderecos().add(enderecoVinculado); // Associa o endereço ao cliente
 
         // Salva o endereço, seja novo ou existente
         return enderecoRepository.save(endereco);

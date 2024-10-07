@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 @AllArgsConstructor
 @Service
@@ -17,9 +19,13 @@ public class PaisService {
     @Transactional
     public Uf addUf(Long idPais, Uf uf){
         Pais pais = findById(idPais);
+        uf.setPais(pais);
         pais.getUfs().add(uf);
-        paisRepository.save(pais);
-        return uf;
+        pais = paisRepository.save(pais);
+        return pais.getUfs().stream()
+                .filter(ufExistente -> ufExistente.equals(uf))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("UF não encontrada após salvar."));
     }
 
     public Pais findById(Long idPais){

@@ -39,9 +39,11 @@ public class ClienteService {
             Logradouro logradouro = logradouroService.findOrCreateLogradouro(endereco.getLogradouro(), tipoLogradouro);
 
             // Atualizar as referências no Endereço
-            endereco = enderecoService.atualizaEndereco(endereco, pais, uf, cidade, bairro, logradouro);
+            endereco = enderecoService.atualizaEndereco(endereco, pais, uf, cidade, bairro, logradouro, enderecoVinculado);
             //Atualiza a tebela ClienteEndereco com o novo endereco
             enderecoVinculado.setEndereco(endereco);
+            ////Atualiza a tebela ClienteEndereco com o cliente
+            enderecoVinculado.setCliente(cliente);
         });
 
         return clienteRepository.save(cliente);

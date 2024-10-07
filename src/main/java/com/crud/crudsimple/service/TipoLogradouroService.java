@@ -17,9 +17,13 @@ public class TipoLogradouroService {
     @Transactional
     public Logradouro addLogradouro(Long idTpLogradouro, Logradouro logradouro) {
         TipoLogradouro tpLogradouro = findById(idTpLogradouro);
+        logradouro.setTpLogradouro(tpLogradouro);
         tpLogradouro.getLogradouros().add(logradouro);
         tipoLogradouroRepository.save(tpLogradouro);
-        return logradouro;
+        return tpLogradouro.getLogradouros().stream()
+                .filter(logradouroExistente -> logradouroExistente.equals(logradouro))
+                .findFirst()
+                .orElseThrow(()->new RuntimeException("Logradouro não encontrado"));
     }
 
     public TipoLogradouro findById(Long idTipoLogradouro) {
