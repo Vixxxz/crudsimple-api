@@ -36,12 +36,10 @@ public class Uf {
 	@Size(groups = {CreateUf.class, UpdateUf.class}, min = 2, max = 3)
 	private String uf;
 
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "uf_pai_id", nullable = false)
 	private Pais pais;
 
-	@JsonBackReference
 	@OneToMany(mappedBy = "uf", cascade = CascadeType.ALL)
 	private List<Cidade> cidades = new ArrayList<Cidade>();
 }

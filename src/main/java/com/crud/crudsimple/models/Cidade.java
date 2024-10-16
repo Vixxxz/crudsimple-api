@@ -35,13 +35,11 @@ public class Cidade {
 	@Size(groups = {CreateCidade.class, UpdateCidade.class}, min = 3, max = 100)
 	private String cidade;
 
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "cid_uf_id", nullable = false)
 	@NotNull (groups = {CreateCidade.class, UpdateCidade.class})
 	private Uf uf;
 
-	@JsonBackReference
 	@OneToMany(mappedBy = "cidade", cascade = CascadeType.ALL)
 	private List<Bairro> bairros = new ArrayList<Bairro>();
 }

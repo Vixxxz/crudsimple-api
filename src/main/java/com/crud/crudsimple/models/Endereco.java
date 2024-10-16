@@ -36,17 +36,14 @@ public class Endereco {
 	@Size(groups = {CreateEndereco.class, UpdateEndereco.class}, min = 8, max = 8)
 	private String cep;
 
-	@JsonBackReference
 	@OneToMany(mappedBy = "endereco")
 	private List<ClienteEndereco> enderecos = new ArrayList<ClienteEndereco>();
 
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "end_bai_id", nullable = false)
 	@NotNull(groups = {CreateEndereco.class, UpdateEndereco.class})
 	private Bairro bairro;
 
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "end_lgr_id", nullable = false)
 	@NotNull(groups = {CreateEndereco.class, UpdateEndereco.class})

@@ -86,7 +86,6 @@ public class Cliente {
 	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
 	private LocalDate dataNascimento;
 
-	@JsonManagedReference //insere no json os enderecos
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	@NotNull (groups = {CreateCliente.class, UpdateCliente.class})
 	private List<ClienteEndereco> enderecos = new ArrayList<ClienteEndereco>();

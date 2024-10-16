@@ -1,19 +1,19 @@
-package com.crud.crudsimple.service;
+package com.crud.crudsimple.service; // Pacote onde a classe está localizada
 
-import com.crud.crudsimple.models.*;
-import com.crud.crudsimple.queryFilters.ClienteQueryFilter;
-import com.crud.crudsimple.repositories.ClienteRepository;
-import org.springframework.stereotype.Service;
-import lombok.AllArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
+import com.crud.crudsimple.models.*; // Importa as classes do pacote models
+import com.crud.crudsimple.queryFilters.ClienteQueryFilter; // Importa a classe ClienteQueryFilter para filtragem de clientes
+import com.crud.crudsimple.repositories.ClienteRepository; // Importa a interface ClienteRepository para operações no banco de dados
+import org.springframework.stereotype.Service; // Importa a anotação Service para registrar a classe como um serviço Spring
+import lombok.AllArgsConstructor; // Importa a anotação AllArgsConstructor para gerar um construtor com todos os campos
+import org.springframework.transaction.annotation.Transactional; // Importa a anotação Transactional para gerenciar transações
 
-import java.util.List;
-import java.util.Optional;
+import java.util.List; // Importa a classe List para manipulação de listas
+import java.util.Optional; // Importa a classe Optional para tratamento de valores opcionais
 
-@AllArgsConstructor
-
-@Service
-public class ClienteService {
+@AllArgsConstructor // Gera um construtor que recebe todos os atributos como parâmetros
+@Service // Indica que a classe é um serviço Spring
+public class ClienteService { // Classe que gerencia a lógica de negócios para Cliente
+    // Injeção de dependências para os serviços e repositórios relacionados a Cliente
     private final ClienteRepository clienteRepository;
     private final EnderecoService enderecoService;
     private final PaisService paisService;
@@ -23,14 +23,16 @@ public class ClienteService {
     private final LogradouroService logradouroService;
     private final TipoLogradouroService tpLogradouroService;
 
-    @Transactional
+    // metodo para criar um novo cliente e vincular endereços
+    @Transactional // Inicia uma transação para garantir que todas as operações sejam atômicas
     public Cliente createCliente(Cliente cliente) {
-        List<ClienteEndereco> enderecosVinculados = cliente.getEnderecos();
+        List<ClienteEndereco> enderecosVinculados = cliente.getEnderecos(); // Obtém a lista de endereços do cliente
 
+        // Itera sobre os endereços vinculados para verificar ou criar as entidades relacionadas
         enderecosVinculados.forEach(enderecoVinculado -> {
-            Endereco endereco = enderecoVinculado.getEndereco();
+            Endereco endereco = enderecoVinculado.getEndereco(); // Obtém o endereço do ClienteEndereco
 
-            // Verificar ou criar as entidades relacionadas
+            // Verifica ou cria as entidades relacionadas, como País, UF, Cidade, Bairro e Logradouro
             Pais pais = paisService.findOrCreatePais(endereco.getBairro().getCidade().getUf().getPais());
             Uf uf = ufService.findOrCreateUf(endereco.getBairro().getCidade().getUf(), pais);
             Cidade cidade = cidadeService.findOrCreateCidade(endereco.getBairro().getCidade(), uf);
@@ -38,26 +40,29 @@ public class ClienteService {
             TipoLogradouro tipoLogradouro = tpLogradouroService.findOrCreateTipoLogradouro(endereco.getLogradouro().getTpLogradouro());
             Logradouro logradouro = logradouroService.findOrCreateLogradouro(endereco.getLogradouro(), tipoLogradouro);
 
-            // Atualizar as referências no Endereço
+            // Atualiza as referências no Endereço
             endereco = enderecoService.atualizaEndereco(endereco, pais, uf, cidade, bairro, logradouro, enderecoVinculado);
-            //Atualiza a tebela ClienteEndereco com o novo endereco
+            // Atualiza a tabela ClienteEndereco com o novo endereço
             enderecoVinculado.setEndereco(endereco);
-            ////Atualiza a tebela ClienteEndereco com o cliente
+            // Atualiza a tabela ClienteEndereco com o cliente
             enderecoVinculado.setCliente(cliente);
         });
 
-        return clienteRepository.save(cliente);
+        return clienteRepository.save(cliente); // Salva o cliente no repositório e retorna o cliente salvo
     }
 
+    // metodo para buscar um cliente pelo ID
     public Cliente findById(Long id) {
-        Optional<Cliente> cliente = clienteRepository.findById(id);
-        return cliente.orElseThrow(() -> new RuntimeException   (
-                                                                    "Não foi possível encontrar o cliente.\nID: " + id + ", Tipo: " + Cliente.class.getName()
-                                                                ));
+        Optional<Cliente> cliente = clienteRepository.findById(id); // Busca o cliente pelo ID
+        // Retorna o cliente encontrado ou lança uma exceção se não for encontrado
+        return cliente.orElseThrow(() -> new RuntimeException(
+                "Não foi possível encontrar o cliente.\nID: " + id + ", Tipo: " + Cliente.class.getName()
+        ));
     }
 
+    // metodo para buscar todos os clientes com base em filtros
     public List<Cliente> findAll(ClienteQueryFilter clienteFilter) {
-        return clienteRepository.findAll(clienteFilter.toSpecification());
+        return clienteRepository.findAll(clienteFilter.toSpecification()); // Busca todos os clientes aplicando as especificações do filtro
     }
 
 //    @Transactional

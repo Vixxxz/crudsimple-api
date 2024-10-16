@@ -35,13 +35,11 @@ public class Bairro {
 	@Size(groups = {CreateBairro.class, UpdateBairro.class}, min = 5, max = 50)
 	private String bairro;
 
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "bai_cid_id", nullable = false)
 	@NotNull (groups = {CreateBairro.class, UpdateBairro.class})
 	private Cidade cidade;
 
-	@JsonBackReference
 	@OneToMany(mappedBy = "bairro", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<Endereco>();
 }

@@ -31,7 +31,6 @@ public class TipoLogradouro
     @Size(min = 2, max = 10)
     private String tpLogradouro;
 
-    @JsonBackReference
     @OneToMany(mappedBy = "tpLogradouro", cascade = CascadeType.ALL)
     private List<Logradouro> logradouros = new ArrayList<>();
 }
